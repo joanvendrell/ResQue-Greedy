@@ -1,5 +1,6 @@
 ## ----- Brute Force Algorithm ----- ##
 from Auxiliary import compute_coverage
+from itertools import chain, combinations
 
 def brute_force_optimal_coverage(allocation_points, target_points, radius, k):
     best_selection = None
