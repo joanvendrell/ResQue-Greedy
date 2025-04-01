@@ -1,6 +1,7 @@
 ##----- Algorithm to randomly create a coverage problem setting -----##
 import numpy as np
 from PoissonSampling import poisson_disk_sampling
+from scipy.spatial import distance_matrix
 
 # Auxiliary function: create random ellipsoid allocation points
 def generate_ellipsoid_points(X, Y, R1, alpha, N):
