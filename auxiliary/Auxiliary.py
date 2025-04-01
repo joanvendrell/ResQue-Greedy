@@ -1,6 +1,5 @@
 ## -------- Auxiliary algorithms --------- ##
 import itertools
-from itertools import chain, combinations
 import numpy as np
 
 # Function to get all combinations of size k
