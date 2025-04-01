@@ -8,6 +8,9 @@ performance without significantly increasing computational complexity. Numerical
 bounds compared to the standard sequential greedy algorithm.
 </div>
 
+<img width="965" alt="lattice" src="https://github.com/user-attachments/assets/3264aa90-3b0e-4e7a-8eca-43058d4a116e" />
+
+
 i.e. ResQue-Greedy applied for rovers landing allocation in Mars exploration for features extraction using DoMars16k dataset.
 
 <img width="913" alt="mars3" src="https://github.com/user-attachments/assets/db53aee9-b403-4693-909a-100c9cdc3b48" />
