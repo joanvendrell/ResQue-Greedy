@@ -1,6 +1,9 @@
 ## ----- Functions to Visualize the problem ---- ##
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.getcwd(), '../data/data/')))
 
 # Function to plot the coverage problem
 def plot_environment(allocation_points, target_points, radius, selected=None):
@@ -20,26 +23,48 @@ def plot_environment(allocation_points, target_points, radius, selected=None):
     plt.show()
 
 # Function to plot two lists as independent lines over the same x-axis
-def plot_two_lines(y_g, y_rw_g, y_e, c_rw_g):
+def plot_two_lines(greedy, resque, random_rew, alan, local, instance, save=False, save_path="plot.png"):
     plt.figure(figsize=(12, 10))
-    x = list(range(len(y_rw_g)))
-    plt.plot(x, y_g, label="Greedy Algorithm", marker='o')
-    plt.plot(x, y_rw_g, label="ResQue Greedy Algorithm", marker='s')
-    plt.plot(x, y_e, label="Random Re-Wiring Algorithm", marker='x')
+    x = list(range(len(resque)))
+    if len(greedy):
+        plt.plot(x, greedy, label="Greedy Algorithm", marker='o')
+    if len(resque):
+        plt.plot(x, resque, label="ResQue Greedy Algorithm", marker='s')
+    if len(random_rew):
+        plt.plot(x, random_rew, label="Random Rewiring Algorithm", marker='x')
+    if len(alan):
+        plt.plot(x, alan, label="Modularity ResQue Algorithm", marker='^')
+    if len(local):
+        plt.plot(x, local, label="Local Search Algorithm", marker='*')
+    if len(instance):
+        plt.plot(x, instance, label="Instance Approximation Algorithm", marker='+')
     plt.ylabel('Return')
-    #plt.plot(x, [y_g[i]/(1-c_rw_g[i]) for i in range(len(y_g))], label="New Curvature bound", marker='*')
-    #plt.plot(x, [y_g[i]/(1-np.exp(-1)) for i in range(len(y_g))], label="Classical Curvature bound", marker='D')
     #plot the bounds
-    plt.legend(loc='upper left',fontsize=16)
+    plt.legend(loc='lower left',fontsize=16)
     plt.xticks(fontsize=16)  # Change the x-axis tick label size
     plt.yticks(fontsize=16) 
     plt.grid(True)
+    if save:
+        plt.savefig(output_file, format='png', dpi=300)
+        print(f"Plot saved as {output_file}")
+    plt.show()
+
+# Function to plot a vector
+def vector_plot(v,name="Vector Plot"):
+    plt.figure()
+    plt.quiver(0, 0, v[0], v[1], angles='xy', scale_units='xy', scale=1)
+    plt.xlim(-1, 4)
+    plt.ylim(-1, 4)
+    plt.grid()
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title(name)
     plt.show()
 
 # Function to plot allocation points and random points over Mars Map
 def plot_points(random_points, centers, greedy=None, resque=None, random=None):
     plt.figure(figsize=(20, 12))
-    img = mpimg.imread('map-mars.jpg')
+    img = mpimg.imread("../data/data/map-mars.jpg")
     plt.imshow(img, extent=[-160, 210, -90, 100], alpha=0.8)
     for point in random_points:
         plt.scatter(point[0]-160, point[1], s=10, color='blue', alpha=0.6)
