@@ -6,6 +6,8 @@ import random
 from collections import defaultdict
 
 # Auxiliary function to observe the features map
+# base_folder = 'domars16k/'
+# counts = count_image_keys(base_folder)
 def count_image_keys(base_folder: str) -> dict:
     # Initialize a dictionary to store counts
     counts = defaultdict(int)
@@ -33,7 +35,8 @@ def split_numbers_and_letters(input_string):
     
     # Return both lists
     return numbers, letters
-        
+
+
 # Function to generate random points within a circular range
 def generate_random_points(data: dict, r: float) -> list:
     points = []; centers = []

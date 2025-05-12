@@ -1,6 +1,6 @@
 ##----- Algorithm to randomly create a coverage problem setting -----##
 import numpy as np
-from PoissonSampling import poisson_disk_sampling
+from .PoissonSampling import poisson_disk_sampling
 from scipy.spatial import distance_matrix
 
 # Auxiliary function: create random ellipsoid allocation points
@@ -50,8 +50,14 @@ def create_submodular_environment(num_points=5, num_targets=100, area_size=10, r
         target_points.extend(cluster_targets)
 
     target_points = np.array(target_points)
+    
     # Compute coverage matrix: Each allocation point covers targets within a given radius
     distances = distance_matrix(allocation_points, target_points)
     coverage_matrix = distances < radius  # Boolean matrix (num_points x num_targets)
-
-    return allocation_points, target_points, radius
+    # Convert to dictionary
+    dataset = {
+        i: set(np.where(row)[0])
+        for i, row in enumerate(coverage_matrix)
+        if np.any(row)  # Optional: skip rows with all False
+    }
+    return target_points,allocation_points, dataset
